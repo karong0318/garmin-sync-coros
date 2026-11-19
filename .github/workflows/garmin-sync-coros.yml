@@ -2,11 +2,7 @@ name: garmin-sync-coros
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1,8,21 * * ?'
 env:
-  GITHUB_NAME: hubiter
-  GITHUB_EMAIL: tninja@foxmail.com
   ## 佳明配置
   GARMIN_AUTH_DOMAIN: ${{ secrets.GARMIN_AUTH_DOMAIN }}
   GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
@@ -46,10 +42,3 @@ jobs:
       - name: Run Garmin Sync
         run: |
           python scripts/garmin/garmin_sync_coros.py
-      - name: Push new cookie
-        run: |
-          git config --local user.email "${{ env.GITHUB_EMAIL }}"
-          git config --local user.name "${{ env.GITHUB_NAME }}"
-          git add .
-          git commit -m 'update garmin activity' || echo "nothing to commit"
-          git push || echo "nothing to push"
